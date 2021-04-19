@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">NateApp</string>
+    <string name="app_name">"Nate's App"</string>
+    <string name="name">Name</string>
+    <string name="enter_name">Enter name</string>
+    <string name="toons">"'Toons"</string>
+    <string name="send">Send</string>
+    <string name="games">Games</string>
+    <string name="characters">Characters</string>
+    <string name="downloads">Downloads</string>
+    <string name="send_confirmation">Name sent!</string>
+    <string name="toast_one">"'Toons!"</string>
+    <string name="toast_two">Games!</string>
+    <string name="toast_three">Characters!</string>
+    <string name="toast_four">Downloads!</string>
 </resources>
