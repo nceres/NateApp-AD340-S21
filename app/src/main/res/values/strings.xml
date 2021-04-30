@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">"Nate's App"</string>
+    <string name="home_screen">Home</string>
+    <string name="movie_list_name">Movies</string>
+    <string name="movie_list_details_name">Movie Details</string>
     <string name="name">Name</string>
     <string name="enter_name">Enter name</string>
-    <string name="toons">"'Toons"</string>
+    <string name="movies">Movies</string>
     <string name="send">Send</string>
     <string name="games">Games</string>
     <string name="characters">Characters</string>
