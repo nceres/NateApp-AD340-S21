@@ -50,7 +50,7 @@ public class Movies extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.movieRecycler);
         RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(recyclerViewLayoutManager);
-        RecyclerView.Adapter recyclerViewAdapter = new CustomAdapter();
+        RecyclerView.Adapter recyclerViewAdapter = new MovieAdapter();
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
@@ -62,7 +62,7 @@ public class Movies extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+    public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public TextView title;
@@ -71,19 +71,19 @@ public class Movies extends AppCompatActivity {
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                title = itemView.findViewById(R.id.title);
-                year = itemView.findViewById(R.id.year);
-                image = itemView.findViewById(R.id.image);
+                title = itemView.findViewById(R.id.movTitle);
+                year = itemView.findViewById(R.id.movYear);
+                image = itemView.findViewById(R.id.movImage);
                 itemView.setOnClickListener(v -> {
-                    int pos = getAdapterPosition();
-                    showMovie(pos);
+                    int index = getAdapterPosition();
+                    showMovie(index);
                 });
             }
         }
 
         @NonNull
         @Override
-        public CustomAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        public MovieAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
             View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.movie_entry, viewGroup,false);
             return new ViewHolder(view);
         }

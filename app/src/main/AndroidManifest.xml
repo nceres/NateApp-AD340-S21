@@ -21,14 +21,16 @@
         </activity>
         <activity
             android:name=".Movies"
-            android:parentActivityName=".MainActivity"
-            android:label="@string/movie_list_name">
-        </activity>
+            android:label="@string/movie_list_name"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MovieDetails"
-            android:parentActivityName=".Movies"
-            android:label="@string/movie_list_details_name">
-        </activity>
+            android:label="@string/movie_list_details_name"
+            android:parentActivityName=".Movies" />
+        <activity
+            android:name=".TrafficCameras"
+            android:label="@string/trafficcam_name"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

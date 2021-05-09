@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void showMessageTwo(View view) {
-        Toast toast = Toast.makeText(this, R.string.toast_two, Toast.LENGTH_SHORT);
-        toast.show();
+    public void runTrafficCams(View view) {
+        Intent intent = new Intent(this, TrafficCameras.class);
+        startActivity(intent);
     }
 
     public void showMessageThree(View view) {
