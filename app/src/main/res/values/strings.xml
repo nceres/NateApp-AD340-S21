@@ -9,12 +9,9 @@
     <string name="movies">Movies</string>
     <string name="send">Send</string>
     <string name="cameras">Cameras</string>
-    <string name="characters">Characters</string>
+    <string name="cam_map">Camera Map</string>
     <string name="downloads">Downloads</string>
     <string name="send_confirmation">Name sent!</string>
-    <string name="toast_one">"'Toons!"</string>
-    <string name="toast_two">Games!</string>
-    <string name="toast_three">Characters!</string>
     <string name="toast_four">Downloads!</string>
     <string name="network_error">No network connection</string>
 </resources>

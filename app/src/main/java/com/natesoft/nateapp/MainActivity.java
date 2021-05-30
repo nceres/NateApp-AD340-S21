@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void showMessageThree(View view) {
-        Toast toast = Toast.makeText(this, R.string.toast_three, Toast.LENGTH_SHORT);
-        toast.show();
+    public void runTrafficCamMap(View view) {
+        Intent intent = new Intent(this, TrafficCamMap.class);
+        startActivity(intent);
     }
 
     public void showMessageFour(View view) {

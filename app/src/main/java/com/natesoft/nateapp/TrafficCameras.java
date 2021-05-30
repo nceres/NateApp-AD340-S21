@@ -80,10 +80,11 @@ public final class TrafficCameras extends AppCompatActivity {
                             cameras.add(cam);
                         }
                     }
+                    adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                adapter.notifyDataSetChanged();
+
             }
         }, new Response.ErrorListener() {
             @Override
