@@ -14,4 +14,7 @@
     <string name="send_confirmation">Name sent!</string>
     <string name="toast_four">Downloads!</string>
     <string name="network_error">No network connection</string>
+    <string name="email_hint">email_hint</string>
+    <string name="password_hint">password_hint</string>
+    <string name="Login">login_button</string>
 </resources>
