@@ -9,7 +9,6 @@
     tools:context=".MainActivity"
     android:scrollbars="vertical">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,16 +22,15 @@
 
             <EditText
                 android:id="@+id/userName"
-                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_width="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:ems="10"
-                android:hint="@string/enter_name"
+                android:hint="@string/name_hint"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
-                android:text="@string/name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

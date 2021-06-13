@@ -5,16 +5,14 @@
     <string name="movie_list_details_name">Movie Details</string>
     <string name="trafficcam_name">Seattle Traffic Cameras</string>
     <string name="name">Name</string>
-    <string name="enter_name">Enter name</string>
     <string name="movies">Movies</string>
-    <string name="send">Send</string>
     <string name="cameras">Cameras</string>
     <string name="cam_map">Camera Map</string>
     <string name="downloads">Downloads</string>
-    <string name="send_confirmation">Name sent!</string>
     <string name="toast_four">Downloads!</string>
     <string name="network_error">No network connection</string>
-    <string name="email_hint">email_hint</string>
-    <string name="password_hint">password_hint</string>
-    <string name="Login">login_button</string>
+    <string name="name_hint">Enter name</string>
+    <string name="email_hint">Enter email</string>
+    <string name="password_hint">Enter password</string>
+    <string name="Login">Login</string>
 </resources>

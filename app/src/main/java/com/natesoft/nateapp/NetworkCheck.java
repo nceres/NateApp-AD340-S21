@@ -7,9 +7,15 @@ import android.net.NetworkInfo;
 public class NetworkCheck {
 
     public static Boolean checkNetworkConnection(Context context) {
-        ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                return true;
+            } else return activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+        } else {
+            return false;
+        }
     }
 
 }

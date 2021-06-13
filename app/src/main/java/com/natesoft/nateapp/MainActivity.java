@@ -15,28 +15,41 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences sharedPref;
+    Button loginButton;
     private EditText userField;
     private EditText emailField;
     private EditText passwordField;
-    SharedPreferences sharedPref;
-    Button loginButton;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         userField = findViewById(R.id.userName);
         emailField = findViewById(R.id.emailAddress);
         passwordField = findViewById(R.id.password);
         loginButton = findViewById(R.id.login);
+
+        sharedPref = MainActivity.this.getPreferences(Context.MODE_PRIVATE);
+        mAuth = FirebaseAuth.getInstance();
+
+        userField.setText(getEntry("userName"));
+        emailField.setText(getEntry("email"));
+        passwordField.setText(getEntry("password"));
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,36 +58,31 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void signIn() {
+    public void signIn() {
         Log.d("FIREBASE", "signIn");
         // 1 - validate display name, email, and password entries
-        String user = userField.getText().toString();
+        String userName = userField.getText().toString();
         String email = emailField.getText().toString();
-        String pwd = passwordField.getText().toString();
-        if (!checkForm(user, email, pwd)) {
+        String password = passwordField.getText().toString();
+        if (!checkForm(userName, email, password)) {
              return;
         }
-
         // 2 - save valid entries to shared preferences
-        sharedPref = getSharedPreferences("login", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("userName", user);
-        editor.putString("email", email);
-        editor.putString("password", pwd);
-        editor.apply();
-
+        saveEntry("userName", userName);
+        saveEntry("email", email);
+        saveEntry("password", password);
         // 3 - sign into Firebase
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        mAuth.signInWithEmailAndPassword(sharedPref.getString("email", "defaultValue"), sharedPref.getString("password", "defaultValue"))
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d("FIREBASE", "signIn:onComplete:" + task.isSuccessful());
+
                         if (task.isSuccessful()) {
                             // update profile. displayname is the value entered in UI
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            FirebaseUser user = mAuth.getCurrentUser();
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(sharedPref.getString("userName", "defaultValue"))
+                                    .setDisplayName(userName)
                                     .build();
                             assert user != null;
                             user.updateProfile(profileUpdates)
@@ -94,7 +102,37 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                            Log.d("FIREBASE", "FirebaseAuthInvalidCredentialsException");
+                        } else if (e instanceof FirebaseAuthInvalidUserException) {
+                            String errorCode =
+                                    ((FirebaseAuthInvalidUserException) e).getErrorCode();
+                            if (errorCode.equals("ERROR_USER_NOT_FOUND")) {
+                                Log.d("FIREBASE", "ERROR_USER_NOT_FOUND");
+                            } else if (errorCode.equals("ERROR_USER_DISABLED")) {
+                                Log.d("FIREBASE", "ERROR_USER_DISABLED");
+                            } else {
+                                Log.d("FIREBASE", "OTHER_ERROR");
+                            }
+                        }
+
+                    }
                 });
+
+    }
+
+    public void saveEntry(String key, String message) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(key, message);
+        editor.commit();
+    }
+
+    public String getEntry(String key) {
+        return sharedPref.getString(key, "");
     }
 
     private boolean checkForm(String userName, String email, String password) {
